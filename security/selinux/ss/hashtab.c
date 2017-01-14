@@ -27,7 +27,7 @@ struct hashtab *hashtab_create(u32 (*hash_value)(struct hashtab *h, const void *
 	p->hash_value = hash_value;
 	p->keycmp = keycmp;
 	p->htable = kmalloc_array(size, sizeof(*p->htable), GFP_KERNEL);
-	if (!p->htable) {
+	if (p->htable == NULL) {
 		kfree(p);
 		return NULL;
 	}
