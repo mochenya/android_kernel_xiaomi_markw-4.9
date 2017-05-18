@@ -71,15 +71,16 @@
 #include "audit.h"
 
 /* Policy capability names */
-const char *selinux_policycap_names[__POLICYDB_CAPABILITY_MAX] = {
+char *selinux_policycap_names[__POLICYDB_CAPABILITY_MAX] = {
 	"network_peer_controls",
 	"open_perms",
 	"compat1",
 	"always_check_network",
-	"compat2",
-	"nnp_nosuid_transition"
+	"compat2"
 };
 
+int selinux_android_netlink_route;
+int selinux_android_netlink_getneigh;
 int selinux_policycap_netpeer;
 int selinux_policycap_openperm;
 int selinux_policycap_alwaysnetwork;
@@ -2008,6 +2009,10 @@ static void security_load_policycaps(void)
 	selinux_policycap_nnp_nosuid_transition =
 		ebitmap_get_bit(&policydb.policycaps,
 				POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION);
+
+	selinux_android_netlink_route = policydb.android_netlink_route;
+	selinux_android_netlink_getneigh = policydb.android_netlink_getneigh;
+	selinux_nlmsg_init();
 
 	for (i = 0; i < ARRAY_SIZE(selinux_policycap_names); i++)
 		pr_info("SELinux:  policy capability %s=%d\n",
