@@ -76,7 +76,8 @@ char *selinux_policycap_names[__POLICYDB_CAPABILITY_MAX] = {
 	"open_perms",
 	"compat1",
 	"always_check_network",
-	"compat2"
+	"compat2",
+	"nnp_nosuid_transition"
 };
 
 int selinux_android_netlink_route;
